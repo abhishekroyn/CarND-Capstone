@@ -49,7 +49,7 @@ class Controller(object):
         # TODO: Change the arg, kwarg list to suit your needs
         # Return throttle, brake, steer
         
-        rospy.logwarn("DBWEnable: {0}".format(dbw_enabled))
+#        rospy.logwarn("DBWEnable: {0}".format(dbw_enabled))
         if not dbw_enabled:
             self.throttle_controller.reset()
             self.steer_controller.reset()
