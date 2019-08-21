@@ -26,9 +26,9 @@ class Controller(object):
         mx_throttle = 0.2 #maximum throttle values
         self.throttle_controller = PID(kp_throttle,ki_throttle,kd_throttle,mn_throttle,mx_throttle)
         
-        kp_steer = 0.4
-        kd_steer = .3
-        ki_steer = 0.01
+        kp_steer = 0.45			# 1.55 with no camera
+        kd_steer = 0.30			# 0.30 with no camera
+        ki_steer = 0.01			# 0.05 with no camera
         self.steer_controller = PID(kp_steer,ki_steer,kd_steer,-max_steer_angle,max_steer_angle)
 
         tau=0.5
