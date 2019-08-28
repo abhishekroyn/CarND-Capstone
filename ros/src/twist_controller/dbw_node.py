@@ -4,6 +4,7 @@ import rospy
 from std_msgs.msg import Bool
 from dbw_mkz_msgs.msg import ThrottleCmd, SteeringCmd, BrakeCmd, SteeringReport
 from geometry_msgs.msg import TwistStamped
+from styx_msgs.msg import Lane, Waypoint
 import math
 
 from twist_controller import Controller
@@ -69,6 +70,7 @@ class DBWNode(object):
         rospy.Subscriber('/vehicle/dbw_enabled',Bool,self.dbw_enabled_cb)
         rospy.Subscriber('/twist_cmd', TwistStamped, self.twist_cb)
         rospy.Subscriber('/current_velocity', TwistStamped, self.velocity_cb)
+        #rospy.Subscriber('/final_waypoints', Lane, self.final_waypoints_cb)
         
         self.current_vel = None
         self.curr_ang_vel = None
@@ -101,17 +103,17 @@ class DBWNode(object):
                 self.publish(self.throttle,self.brake,self.steering)
             
             rate.sleep()
-    
+
     def dbw_enabled_cb(self, msg):
         self.dbw_enabled = msg
         
     def twist_cb(self, msg):
         self.linear_vel = msg.twist.linear.x
         self.angular_vel = msg.twist.angular.z
-    
+        
     def velocity_cb(self, msg):
         self.current_vel = msg.twist.linear.x
-    
+        
     def publish(self, throttle, brake, steer):
         tcmd = ThrottleCmd()
         tcmd.enable = True
@@ -129,6 +131,7 @@ class DBWNode(object):
         bcmd.pedal_cmd_type = BrakeCmd.CMD_TORQUE
         bcmd.pedal_cmd = brake
         self.brake_pub.publish(bcmd)
+
 
 if __name__ == '__main__':
     DBWNode()

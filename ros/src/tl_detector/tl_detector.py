@@ -53,7 +53,7 @@ class TLDetector(object):
         self.state_count = 0
 
         rospy.spin()
-
+        
     def pose_cb(self, msg):
         self.pose = msg
 
@@ -120,10 +120,10 @@ class TLDetector(object):
             int: ID of traffic light color (specified in styx_msgs/TrafficLight)
 
         """
-#        return light.state
-        # if(not self.has_image):
-            # self.prev_light_loc = None
-            # return False
+        # return light.state
+        #if(not self.has_image):
+            #self.prev_light_loc = None
+            #return False
 
         cv_image = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
 
